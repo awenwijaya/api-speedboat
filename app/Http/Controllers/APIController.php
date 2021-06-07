@@ -41,11 +41,6 @@ class APIController extends Controller
         $id_kapal = $request->input('id_kapal');
         $nama_pelabuhan_asal = model_pelabuhan::select('nama_pelabuhan')->where('id', $id_pelabuhan_asal)->get();
         $nama_pelabuhan_tujuan = model_pelabuhan::select('nama_pelabuhan')->where('id', $id_pelabuhan_tujuan)->get();
-        $tanggal = model_jadwal::select('tanggal')->where([
-            ['id_asal_pelabuhan', '=', $id_pelabuhan_asal],
-            ['id_tujuan_pelabuhan', '=', $id_pelabuhan_tujuan],
-            ['id_kapal', '=', $id_kapal]
-        ])->get();
         $waktu_berangkat = model_jadwal::select('waktu_berangkat')->where([
             ['id_asal_pelabuhan', '=', $id_pelabuhan_asal],
             ['id_tujuan_pelabuhan', '=', $id_pelabuhan_tujuan],
@@ -59,7 +54,6 @@ class APIController extends Controller
         return response()->json([
             'nama_pelabuhan_asal' => $nama_pelabuhan_asal,
             'nama_pelabuhan_tujuan' => $nama_pelabuhan_tujuan,
-            'tanggal' => $tanggal,
             'waktu_berangkat' => $waktu_berangkat,
             'estimasi_waktu' => $estimasi_waktu
         ]);
